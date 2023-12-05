@@ -41,7 +41,7 @@ async def on_startup(dp):
 
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
-    await message.answer("Hello! Send /sendvideo to send a video.")
+    await message.answer("Hello! Send me video url to download video.")
 
 @dp.message_handler(commands=['ping'])
 async def ping(message: types.Message):
