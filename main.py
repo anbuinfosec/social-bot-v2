@@ -105,4 +105,5 @@ if __name__ == '__main__':
     from aiogram import executor
     start_flask()
     update_bot ()
+    clear ()
     executor.start_polling(dp, on_startup=on_startup)
