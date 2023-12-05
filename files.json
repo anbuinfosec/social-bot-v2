@@ -1,5 +1,6 @@
 {
     "files": [
+        "files.json",
         "func.py",
         "main.py",
         "requirements.txt",
