@@ -1,0 +1,10 @@
+aiogram==2.17
+aiohttp
+aiofiles
+asyncio
+flask
+python-decouple
+python-dotenv
+psutil
+requests
+uuid
