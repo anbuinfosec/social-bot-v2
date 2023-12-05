@@ -21,7 +21,7 @@ def download_and_replace(base_url, file_list):
             response.raise_for_status()
             with open(file_name, "wb") as f:
                 f.write(response.content)
-            print(f"Updated: {file_name}")
+            print(f" * Updated: {file_name}")
         except requests.exceptions.RequestException as e:
             print(f"Error downloading {file_name}: {e}")
 
