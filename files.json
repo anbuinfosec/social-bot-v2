@@ -1,0 +1,10 @@
+{
+    "files": [
+        "func.py",
+        "main.py",
+        "requirements.txt",
+        "update.py",
+        "uptime.py",
+        "utils.py"
+    ]
+}
