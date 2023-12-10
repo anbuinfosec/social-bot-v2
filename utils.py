@@ -15,6 +15,9 @@ import uuid
 import aiofiles
 from func import convert_bytes
 import mimetypes
+import requests
+from urllib.parse import quote
+
 
 def get_extension_from_mime_type(mime_type):
     '''
@@ -89,9 +92,9 @@ async def downloadFromUrl(url, destination_folder='tmp'):
                 file_path = os.path.join(destination_folder, FileName)
                 async with aiofiles.open(file_path, "wb") as f:
                     await f.write(await response.read())
-                    return file_path, size, file_type
+                    return  file_path, size, file_type
             else:
-                return False
+                return url
 
 
 async def get_video_download_info(video_url, downloader, apikey):
@@ -109,3 +112,10 @@ async def get_video_download_info(video_url, downloader, apikey):
                 return result
     except aiohttp.ClientResponseError as e:
         return {"status": False, "message": f"Error: {e}"}
+    
+def urlShort (url):
+    req = requests.get(f'https://tinyurl.com/api-create.php?url={quote(url)}')
+    if req.status_code == 200:
+        return req.text
+    else:
+        False
