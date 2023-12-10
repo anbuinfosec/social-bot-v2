@@ -103,11 +103,8 @@ async def update(message: types.Message):
     try:
         if user_id == ADMIN_ID:
             processing_message = await message.reply("Please wait updating bot!")
-            update = update()
-            if update:
-                await processing_message.edit_text("Update successfull please restart your project...")
-            else:
-                await processing_message.edit_text("Update failed......")
+            update_bot ()
+            await processing_message.edit_text("Update success...")
         else:
             await message.answer("Hehe boi you are not bot admin.")
     except Exception as e:
