@@ -14,7 +14,6 @@ import asyncio
 import uuid
 import aiofiles
 from func import convert_bytes
-
 import mimetypes
 
 def get_extension_from_mime_type(mime_type):
@@ -49,7 +48,7 @@ def check_downloader(url):
     '''
     facebook_regex = r'(https?://)?(www\.)?(facebook\.com|fb\.watch|fb\.com|m\.facebook\.com|web\.facebook\.com)/.+$'
     youtube_regex = r'(https?://)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)/.+$'
-    terabox_regex = r'(https?://)?(www\.)?teraboxapp\.com/s/.+$'
+    terabox_regex = r'https?://(www\.)?(teraboxapp\.com|terabox\.com|4funbox\.com)/s/.+$'
     instagram_regex = r'(https?://)?(www\.)?instagram\.com/(p|reel|tv)/.+'
     twitter_regex = r'(https?://)?(www\.)?twitter\.com/.+/status/.+'
 
@@ -74,14 +73,23 @@ async def downloadFromUrl(url, destination_folder='tmp'):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             if response.status == 200:
-                content_type = get_extension_from_mime_type(str(response.headers.get('Content-Type')))
+                c_type = str(response.headers.get('Content-Type'))
+                content_type = get_extension_from_mime_type(c_type)
                 size = (convert_bytes(int(response.headers.get('Content-Length'))))
                 await check_tmp()
+                
+                if c_type and c_type.startswith('image'):
+                    file_type = 'photo'
+                elif c_type and c_type.startswith('video'):
+                    file_type = 'video'
+                else:
+                    file_type = 'doc'
+                
                 FileName = random_name(content_type)
                 file_path = os.path.join(destination_folder, FileName)
                 async with aiofiles.open(file_path, "wb") as f:
                     await f.write(await response.read())
-                    return file_path, size
+                    return file_path, size, file_type
             else:
                 return False
 
@@ -89,7 +97,7 @@ async def downloadFromUrl(url, destination_folder='tmp'):
 async def get_video_download_info(video_url, downloader, apikey):
     '''
     Geting the download url from user provided url.
-    For apikey create account ojn : https://anbusec.xyz
+    For apikey create account on : https://anbusec.xyz
     '''
     base_url = f'https://anbusec.xyz/api/downloader/{downloader}'
     query_params = {'apikey': apikey, 'url': video_url, 'pwd': ''}
