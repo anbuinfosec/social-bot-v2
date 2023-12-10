@@ -96,6 +96,23 @@ async def clean(message: types.Message):
     else:
         await message.answer("Hehe boi you are not bot admin.")
 
+
+@dp.message_handler(commands=['update'])
+async def update(message: types.Message):
+    user_id = str(message.from_user.id)
+    try:
+        if user_id == ADMIN_ID:
+            processing_message = await message.reply("Please wait updating bot!")
+            update = update()
+            if update:
+                await processing_message.edit_text("Update successfull please restart your project...")
+            else:
+                await processing_message.edit_text("Update failed......")
+        else:
+            await message.answer("Hehe boi you are not bot admin.")
+    except Exception as e:
+        await processing_message.edit_text(f"An error occurred: {e}")
+
 @dp.message_handler()
 async def echo(message: types.Message):
     first_name = message.from_user.first_name
@@ -110,7 +127,7 @@ async def echo(message: types.Message):
     downloader = check_downloader(message_url)
     if downloader:
         processing_message = await message.reply("Please wait, downloading file fro : {message_url}")
-        await bot.delete_message(chat_id=chat_id, message_id=message_id)
+        #await bot.delete_message(chat_id=chat_id, message_id=message_id)
         try:
             video_info = await get_video_download_info(message_url, downloader, APIKEY)
             if video_info["status"]:
@@ -162,6 +179,6 @@ async def echo(message: types.Message):
 if __name__ == '__main__':
     from aiogram import executor
     start_flask()
-    update_bot ()
+    #update_bot ()
     clear ()
     executor.start_polling(dp, on_startup=on_startup)

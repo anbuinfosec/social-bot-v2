@@ -6,6 +6,7 @@
         "requirements.txt",
         "update.py",
         "uptime.py",
-        "utils.py"
+        "utils.py",
+        "store.py"
     ]
 }
