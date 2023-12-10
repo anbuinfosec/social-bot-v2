@@ -35,7 +35,6 @@ def update():
         download_and_replace(base_url, file_list)
         return True
     else:
-        print("No files to update.")
         return False
 
 if __name__ == "__main__":
