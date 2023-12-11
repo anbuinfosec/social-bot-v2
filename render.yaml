@@ -1,5 +1,5 @@
- - type: cron
-    runtime: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "python3 main.py"
-    repo: "https://github.com/anbuinfosec/social-bot-v2"
+- type: cron
+  runtime: python
+  buildCommand: "pip install -r requirements.txt"
+  startCommand: "python3 main.py"
+  repo: "https://github.com/anbuinfosec/social-bot-v2"
