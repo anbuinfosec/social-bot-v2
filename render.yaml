@@ -1,5 +1,4 @@
  - type: cron
-    name: "social-bot-v2"
     runtime: python
     buildCommand: "pip install -r requirements.txt"
     startCommand: "python3 main.py"
