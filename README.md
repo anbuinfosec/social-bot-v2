@@ -10,6 +10,7 @@
 - [X] TWITTER
 - [X] YOUTUBE
 - [X] TERABOX
+- [X] TIKTOK
 
 
 ### Install
@@ -25,7 +26,7 @@ pip install -r requirements.txt
 
 ### Config .env
 - `TELEGRAM_BOT_TOKEN`: The Telegram Bot Token that you got from [@BotFather](https://t.me/BotFather).
-- `API_KEY`: The apikey that you got from [anbusec.xyz](https://anbusec.xyz).
+- `API_KEY`: The apikey that you got from [anbuinfosec.xyz](https://api.anbuinfosec.xyz).
 
 ````
 TELEGRAM_BOT_TOKEN=YOUR_TELEGRAM_BOT_KEY
@@ -34,7 +35,7 @@ API_KEY=YOUR_API_KEY
 
 ### Run Project
 ````
-python bot.py
+python main.py
 ````
 ---
 ### Run on replit

@@ -2,9 +2,9 @@
 #!/bin/python3
 #############################$##############
 # PYTHON SOCIAL MEDIA VIDEO DOWNLOADER BOT #
-#          BOT VERSION: 1.0.1              #
+#          BOT VERSION: 1.0.2              #
 #  AUTHOR : MOHAMMAD ALAMIN (anbuinfosec)  #
-#      GET APIKEY : https://anbusec.xyz    #
+#  GET APIKEY : https://anbuinfosec.xyz    #
 #           COPYRIGHT : anbuinfosec        #
 ############################################
 import os
@@ -17,7 +17,9 @@ from func import convert_bytes
 import mimetypes
 import requests
 from urllib.parse import quote
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def get_extension_from_mime_type(mime_type):
     '''
@@ -53,7 +55,8 @@ def check_downloader(url):
     youtube_regex = r'(https?://)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)/.+$'
     terabox_regex = r'https?://(www\.)?(teraboxapp\.com|terabox\.com|4funbox\.com)/s/.+$'
     instagram_regex = r'(https?://)?(www\.)?instagram\.com/(p|reel|tv)/.+'
-    twitter_regex = r'(https?://)?(www\.)?twitter\.com/.+/status/.+'
+    twitter_regex = r'https?:\/\/(x|twitter)\.com\/.*'
+    tiktok_regex = r'https?:\/\/tiktok\.com\/.*'
 
     if re.match(facebook_regex, url):
         return "facebook"
@@ -65,6 +68,8 @@ def check_downloader(url):
         return "instagram"
     elif re.match(twitter_regex, url):
         return "twitter"
+    elif re.match(tiktok_regex, url):
+        return "tiktok"
     else:
         return False
 
@@ -98,11 +103,14 @@ async def downloadFromUrl(url, destination_folder='tmp'):
 
 
 async def get_video_download_info(video_url, downloader, apikey):
-    '''
+    f'''
     Geting the download url from user provided url.
-    For apikey create account on : https://anbusec.xyz
+    For apikey create account on : {HOST}
     '''
-    base_url = f'https://anbusec.xyz/api/downloader/{downloader}'
+    HOST = os.getenv("HOST")
+    if HOST == "":
+        sys.exit ("[-] Host url not found.")
+    base_url = f'{HOST}/api/downloader/{downloader}'
     query_params = {'apikey': apikey, 'url': video_url, 'pwd': ''}
     try:
         async with aiohttp.ClientSession() as session:

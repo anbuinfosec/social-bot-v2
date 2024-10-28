@@ -128,7 +128,7 @@ async def echo(message: types.Message):
         try:
             video_info = await get_video_download_info(message_url, downloader, APIKEY)
             if video_info["status"]:
-                getShortUrl = urlShort(video_info['url'])
+                getShortUrl = urlShort(video_info['video'])
                 if getShortUrl != False:
                     save_data(name, user_id, message_url, getShortUrl)
                     keyboard = types.InlineKeyboardMarkup()
